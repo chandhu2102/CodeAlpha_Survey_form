@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Mobile Phone Survey</title>
+<link rel="stylesheet" href="styles.css"> <!-- Include your CSS file here -->
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const labels = document.querySelectorAll('.radio-label');
+    
+    labels.forEach(label => {
+      label.addEventListener('click', function () {
+        const value = this.getAttribute('data-value');
+        const radioButton = this.querySelector('input[type="radio"]');
+        
+        radioButton.checked = true;
+        
+        // Add clicked style
+        this.classList.add('clicked');
+        
+        // Optional: Remove clicked style after a short delay (e.g., 500 ms)
+        setTimeout(() => {
+          this.classList.remove('clicked');
+        }, 500);
+        
+        console.log(`Image clicked: ${value}`);
+      });
+    });
+  });
+  </script>
+  
+<body>
+  <div class="App">
+    <h1>College Mobile Phone Survey</h1>
+    <div class="progress-bar">
+ <!-- Progress icon for the first page -->
+      <div class="progress-line" style="width: 0;"></div> <!-- Progress line -->
+    </div>
+    <form id="surveyForm" class="survey-form"  action="connection.php" method="post">
+      <!-- Page 1 content -->
+      <div class="page" id="page1">
+        <h2>Demographic Information</h2>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" class="input-field" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email (optional):</label>
+          <input type="email" id="email" name="email" class="input-field">
+        </div>
+        <div class="form-group">
+          <label>Gender:</label><br>
+          <div class="radio-group">
+            <label for="male" class="radio-label">
+              <input type="radio" name="gender" value="m" id="male" class="radio-input" />
+              Male 👦
+            </label>
+            <label for="female" class="radio-label">
+              <input type="radio" name="gender" value="f" id="female" class="radio-input" />
+              Female 👩‍🦰
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="department">Department/Program:</label>
+          <input type="text" id="department" name="department" class="input-field" required>
+        </div>
+        <div class="form-group">
+          <label for="year">Year of Study:</label>
+          <input type="number" id="year" name="year" class="input-field" required>
+        </div>
+        <button type="button" class="next-button" onclick="nextPage(2)">Next</button>
+      </div>
+      
+      <!-- ... Add other pages here -->
+      <!-- Inside the <form> element -->
+
+<!-- Page 2 content -->
+ 
+<div class="page" id="page2">
+  <h2>College Details</h2>
+  <label for="college">Which college do you belong to?</label><br>
+  <input type="text" id="college" name="college" required>
+  <h2>Mobile Phone Usage</h2>
+  <label>Do you currently use a mobile phone?</label>
+  <br>
+  <div class="radio-group">
+    <label for="useMobile" data-value="Yes" class="radio-label" onclick="toggleClickImage(this)">
+      <input type="radio" id="useMobileYes" name="useMobile" value="Yes">
+      <img src="https://i.pinimg.com/564x/39/e8/98/39e8983633dae3f3a5e8b592047c2ecc.jpg" alt="Yes Image" >
+      <span></span>
+    </label>
+  
+    <label for="useMobile"  data-value="No" class="radio-label" onclick="toggleClickImage(this)">
+      <input type="radio" id="useMobileNo" name="useMobile" value="No">
+      <img src="https://images8.alphacoders.com/857/857892.png" alt="No Image">
+      <span></span>
+    </label>
+  </div>
+  
+  
+  
+  <br>
+  <button type="button" class="prev-button" onclick="prevPage(1)">Previous</button>
+  <button type="button" class="next-button" onclick="nextPage(3)">Next</button>
+</div>
+<!-- Inside the <form> element -->
+
+<!-- Page 3 content -->
+ 
+<div class="page" id="page3">
+  <h2>Opinions on Allowing Mobiles Inside Campus</h2>
+  <label for="opinion">What is your opinion on allowing mobile phones inside the campus?</label>
+  <select id="opinion" name="opinion">
+    <option value="Strongly Agree">Strongly Agree</option>
+    <option value="Agree">Agree</option>
+    <option value="Neutral">Neutral</option>
+    <option value="Disagree">Disagree</option>
+    <option value="Strongly Disagree">Strongly Disagree</option>
+  </select>
+  
+  <h2>Reasons for Your Opinion</h2>
+  <label for="opinionReason">Why do you hold this opinion?</label>
+  <textarea id="opinionReason" name="opinionReason" rows="4"></textarea>
+  <button type="button" class="prev-button" onclick="prevPage(2)">Previous</button>
+  <button type="button" class="next-button" onclick="nextPage(4)">Next</button>
+</div>
+<!-- Inside the <form> element -->
+
+    <div class="page" id="page4">
+       
+      
+        <h2>Mobile Usage Scenarios</h2>
+        <label>In which situations do you find mobile phones useful on campus?</label>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="mobileUsage[]" value="Quick communication">
+            Quick communication
+          </label><br>
+          <label>
+            <input type="checkbox" name="mobileUsage[]" value="Access to educational apps">
+            Access to educational apps
+          </label><br>
+          <label>
+            <input type="checkbox" name="mobileUsage[]" value="Emergency situations">
+            Emergency situations
+          </label><br>
+          <label>
+            <input type="checkbox" name="mobileUsage[]" value="Documenting events">
+            Documenting events
+          </label><br>
+          <label>
+            <input type="checkbox" name="mobileUsage[]" value="Other">
+            Other (specify): <input type="text" name="mobileUsageOther">
+          </label><br>
+        </div>
+      
+        <h2>Potential Concerns</h2>
+        <label>What concerns do you have about allowing mobile phones inside the campus?</label>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="concerns[]" value="Distraction during classes">
+            Distraction during classes
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Privacy issues">
+            Privacy issues
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Cheating in exams">
+            Cheating in exams
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Disruption of social interactions">
+            Disruption of social interactions
+          </label><br>
+          <label>
+            <input type="checkbox" name="concerns[]" value="Other">
+            Other (specify): <input type="text" name="concernsOther">
+          </label><br>
+        </div>
+      
+        <button type="button" class="prev-button" onclick="prevPage(3)">Previous</button>
+    
+  <button type="button" class="next-button" onclick="nextPage(5)">Next</button>
+      </div>
+      <!-- Inside the <form> element -->
+
+<div class="page" id="page5">
+    <h2>Alternative Solutions</h2>
+    <label for="alternativeSolutions">If mobile phones are not allowed, what alternative solutions would you suggest to meet the needs of students?</label>
+    <textarea id="alternativeSolutions" name="alternativeSolutions" rows="4"></textarea>
+  
+    <h2>Additional Comments</h2>
+    <label for="additionalComments">Do you have any additional comments or suggestions related to this topic?</label>
+    <textarea id="additionalComments" name="additionalComments" rows="4"></textarea>
+  
+    <h2>Final Thoughts</h2>
+    <label for="finalThoughts">Would you like to share any final thoughts or considerations regarding this topic?</label>
+    <textarea id="finalThoughts" name="finalThoughts" rows="4"></textarea>
+  
+    <button type="button" class="prev-button" onclick="prevPage(4)">Previous</button>
+    <button type="submit">Submit</button>
+  </div>
+  
+
+    </form>
+  </div>
+  <script src="script.js"></script> <!-- Include your JavaScript file here -->
+</body>
+</html>
